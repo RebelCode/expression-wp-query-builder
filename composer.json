@@ -25,7 +25,7 @@
     },
     "autoload": {
         "psr-4": {
-            "RebelCode\\Wordpress\\Query\\Builder\\": "src"
+            "RebelCode\\WordPress\\Query\\Builder\\": "src"
         }
     },
     "scripts": {
