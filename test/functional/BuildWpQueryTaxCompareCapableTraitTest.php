@@ -134,10 +134,7 @@ class BuildWpQueryTaxCompareCapableTraitTest extends TestCase
         $this->assertEquals(
             $expected,
             $reflect->_buildWpQueryTaxCompare($expression),
-            'Expected and retrieved arrays are not equal',
-            0,
-            10,
-            true
+            'Expected and retrieved arrays are not equal'
         );
     }
 

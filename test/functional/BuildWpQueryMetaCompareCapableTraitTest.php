@@ -128,16 +128,13 @@ class BuildWpQueryMetaCompareCapableTraitTest extends TestCase
             'key' => $key,
             'value' => $value,
             'type' => $type,
-            'operator' => $op,
+            'compare' => $op,
         ];
 
         $this->assertEquals(
             $expected,
             $reflect->_buildWpQueryMetaCompare($expression),
-            'Expected and retrieved arrays are not equal',
-            0,
-            10,
-            true
+            'Expected and retrieved arrays are not equal'
         );
     }
 
