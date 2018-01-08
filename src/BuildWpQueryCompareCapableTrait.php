@@ -46,7 +46,7 @@ trait BuildWpQueryCompareCapableTrait
             );
         }
 
-        $key = $this->_getWpQueryCompareKey($expression);
+        $key   = $this->_getWpQueryCompareKey($expression);
         $value = $this->_getWpQueryCompareValue($expression);
 
         return [$key => $value];
@@ -70,9 +70,9 @@ trait BuildWpQueryCompareCapableTrait
      *
      * @param LogicalExpressionInterface $expression The expression instance to extract from.
      *
-     * @return string The compare key string.
-     *
      * @throws InvalidArgumentException If the compare key could not be determined/retrieved.
+     *
+     * @return string The compare key string.
      */
     abstract protected function _getWpQueryCompareKey(LogicalExpressionInterface $expression);
 
@@ -83,9 +83,9 @@ trait BuildWpQueryCompareCapableTrait
      *
      * @param LogicalExpressionInterface $expression The expression instance to extract from.
      *
-     * @return mixed The compare value.
-     *
      * @throws InvalidArgumentException If the compare value could not be determined/retrieved.
+     *
+     * @return mixed The compare value.
      */
     abstract protected function _getWpQueryCompareValue(LogicalExpressionInterface $expression);
 

@@ -48,7 +48,7 @@ class BuildWpQueryRelationCapableTraitTest extends TestCase
         $mock = $builder->getMockForTrait();
         $mock->method('__')->willReturnArgument(0);
         $mock->method('_createInvalidArgumentException')->willReturnCallback(
-            function($m, $c, $p) {
+            function ($m, $c, $p) {
                 return new InvalidArgumentException($m, $c, $p);
             }
         );

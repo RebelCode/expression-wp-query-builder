@@ -50,7 +50,7 @@ class BuildWpQueryTaxCompareCapableTraitTest extends TestCase
         $mock = $builder->getMockForTrait();
         $mock->method('__')->willReturnArgument(0);
         $mock->method('_createInvalidArgumentException')->willReturnCallback(
-            function($m, $c, $p) {
+            function ($m, $c, $p) {
                 return new InvalidArgumentException($m, $c, $p);
             }
         );
@@ -126,8 +126,8 @@ class BuildWpQueryTaxCompareCapableTraitTest extends TestCase
 
         $expected = [
             'taxonomy' => $tax,
-            'field'    => $field,
-            'terms'    => $terms,
+            'field' => $field,
+            'terms' => $terms,
             'operator' => $op,
         ];
 

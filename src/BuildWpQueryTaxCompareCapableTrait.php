@@ -63,9 +63,9 @@ trait BuildWpQueryTaxCompareCapableTrait
      *
      * @param LogicalExpressionInterface $expression The expression instance to extract from.
      *
-     * @return string The taxonomy name string.
-     *
      * @throws InvalidArgumentException If the taxonomy compare name cannot be determined.
+     *
+     * @return string The taxonomy name string.
      */
     abstract protected function _getWpQueryTaxCompareTaxonomy(LogicalExpressionInterface $expression);
 
@@ -76,9 +76,9 @@ trait BuildWpQueryTaxCompareCapableTrait
      *
      * @param LogicalExpressionInterface $expression The expression instance to extract from.
      *
-     * @return string The taxonomy field string.
-     *
      * @throws InvalidArgumentException If the taxonomy compare field cannot be determined.
+     *
+     * @return string The taxonomy field string.
      */
     abstract protected function _getWpQueryTaxCompareField(LogicalExpressionInterface $expression);
 
@@ -89,9 +89,9 @@ trait BuildWpQueryTaxCompareCapableTrait
      *
      * @param LogicalExpressionInterface $expression The expression instance to extract from.
      *
-     * @return array A list of taxonomy term strings.
-     *
      * @throws InvalidArgumentException If the taxonomy compare field cannot be determined.
+     *
+     * @return array A list of taxonomy term strings.
      */
     abstract protected function _getWpQueryTaxCompareTerms(LogicalExpressionInterface $expression);
 

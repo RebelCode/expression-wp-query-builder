@@ -43,7 +43,7 @@ trait BuildWpQueryRelationCapableTrait
     {
         try {
             $relation = $this->_getWpQueryRelationOperator($expression);
-            $result = [
+            $result   = [
                 'relation' => $relation,
             ];
 
@@ -69,9 +69,9 @@ trait BuildWpQueryRelationCapableTrait
      *
      * @param LogicalExpressionInterface $expression The expression instance to extract from.
      *
-     * @return string The relation operator string.
-     *
      * @throws InvalidArgumentException If no relation operator could be determined for the given expression.
+     *
+     * @return string The relation operator string.
      */
     abstract protected function _getWpQueryRelationOperator(LogicalExpressionInterface $expression);
 
@@ -83,9 +83,9 @@ trait BuildWpQueryRelationCapableTrait
      * @param TermInterface              $term   The term to build.
      * @param LogicalExpressionInterface $parent The parent expression of the term.
      *
-     * @return array The built term as the sub-array portion that represents it in WP_Query args.
-     *
      * @throws InvalidArgumentException If the term could not be built.
+     *
+     * @return array The built term as the sub-array portion that represents it in WP_Query args.
      */
     abstract protected function _buildWpQueryRelationTerm(TermInterface $term, LogicalExpressionInterface $parent);
 

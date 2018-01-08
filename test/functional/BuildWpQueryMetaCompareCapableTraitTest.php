@@ -50,7 +50,7 @@ class BuildWpQueryMetaCompareCapableTraitTest extends TestCase
         $mock = $builder->getMockForTrait();
         $mock->method('__')->willReturnArgument(0);
         $mock->method('_createInvalidArgumentException')->willReturnCallback(
-            function($m, $c, $p) {
+            function ($m, $c, $p) {
                 return new InvalidArgumentException($m, $c, $p);
             }
         );
@@ -125,9 +125,9 @@ class BuildWpQueryMetaCompareCapableTraitTest extends TestCase
                 ->willReturn($op = uniqid('op-'));
 
         $expected = [
-            'key'      => $key,
-            'value'    => $value,
-            'type'     => $type,
+            'key' => $key,
+            'value' => $value,
+            'type' => $type,
             'operator' => $op,
         ];
 
