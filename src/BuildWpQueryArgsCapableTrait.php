@@ -30,7 +30,7 @@ trait BuildWpQueryArgsCapableTrait
     {
         if (!$this->_isWpQueryExpressionSupported($expression)) {
             throw $this->_createInvalidArgumentException(
-                $this->__('Expression must be an AND expression'),
+                $this->__('Expression is not supported'),
                 null,
                 null,
                 $expression
