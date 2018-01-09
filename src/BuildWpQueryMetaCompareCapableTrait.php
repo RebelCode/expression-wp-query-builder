@@ -7,6 +7,24 @@ use Dhii\Util\String\StringableInterface as Stringable;
 use Exception as RootException;
 use InvalidArgumentException;
 
+/**
+ * Common functionality for objects that can build expressions into `WP_Query` meta comparisons.
+ *
+ * The meta comparisons in a `WP_Query` argument array are the sub-array portions that represent a meta key comparison
+ * with a value. They are found as entries in a relational array and take the following form:
+ *
+ * ```php
+ * <?php
+ * [
+ *     'key'     => 'my_meta_key',
+ *     'value'   => 100,
+ *     'type'    => 'NUMERIC',
+ *     'compare' => '<='
+ * ]
+ * ```
+ *
+ * @since [*next-version*]
+ */
 trait BuildWpQueryMetaCompareCapableTrait
 {
     /**
