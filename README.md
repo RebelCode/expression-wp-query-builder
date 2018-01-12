@@ -40,7 +40,7 @@ Provides functionality for building top-level comparison key-value pairs.
 - **Required implementations:**
   - `_getWpQueryCompareKey()`
   - `_getWpQueryCompareValue()`
-- **Compliments:**
+- **Complements:**
   - [`BuildWpQueryArgsCapableTrait`](#buildwpqueryargscapabletrait)
 
 ----
@@ -54,7 +54,7 @@ Provides functionality for building relation arrays.
 - **Required implementations:**
   - `_getWpQueryRelationOperator()` - _fullfilled by [`GetWpQueryRelationOperatorCapableTrait`](#getwpqueryrelationoperatorcapabletrait)_
   - `_buildWpQueryRelationTerm()` - _fulfilled by [`BuildWpQueryRelationTermCapableTrait`](#buildwpqueryrelationtermcapabletrait)_
-- **Fulfills:**
+- **Complements:**
   - [`BuildWpQueryRelationTermCapableTrait`](#buildwpqueryrelationtermcapabletrait)
 
 ----
@@ -68,7 +68,7 @@ Provides functionality for building the terms in a relation array, by delegating
 - **Required implementations:**
   - `_buildWpQueryMetaCompare()` - _fulfilled by [`BuildWpQueryMetaCompareCapableTrait`]_
   - `_buildWpQueryTaxCompare()` - _fulfilled by [`BuildWpQueryTaxCompareCapableTrait`]_
-- **Compliments**
+- **Complements**
   - [`BuildWpQueryRelationTermCapableTrait`](#buildwpqueryrelationtermcapabletrait)
 
 ----
@@ -84,7 +84,7 @@ Provides functionality for building meta comparison arrays.
   - `_getWpQueryMetaCompareValue()`
   - `_getWpQueryMetaCompareType()` - _fulfilled by [`GetWpQueryMetaCompareTypeCapableTrait`]_
   - `_getWpQueryMetaCompareOperator()` - _fulfilled by [`GetWpQueryMetaCompareOperatorCapableTrait`]_
-- **Compliments:**
+- **Complements:**
   - [`BuildWpQueryRelationTermCapableTrait`](#buildwpqueryrelationtermcapabletrait)
 
 ---
@@ -100,7 +100,7 @@ Provides functionality for building taxonomy comparison arrays.
   - `_getWpQueryTaxCompareField()`
   - `_getWpQueryTaxCompareTerms()`
   - `_getWpQueryTaxCompareOperator()` - _fulfilled by [`GetWpQueryTaxCompareOperatorCapableTrait`](#getwpquerytaxcompareoperatorcapabletrait)_
-- **Compliments:**
+- **Complements:**
   - [`BuildWpQueryRelationTermCapableTrait`](#buildwpqueryrelationtermcapabletrait)
 
 ---
@@ -111,7 +111,7 @@ Provides functionality for building taxonomy comparison arrays.
 
 Provides functionality for resolving the meta comparison compare type from an expression.
 
-- **Compliments:**
+- **Complements:**
   - [`BuildWpQueryMetaCompareCapableTrait`](#buildwpquerymetacomparecapabletrait)
 
 ---
@@ -124,7 +124,7 @@ Provides functionality for resolving the meta comparison value cast type from an
 
 - **Required implementations:**
   - `_getWpQueryMetaCompareValue()`
-- **Compliments:**
+- **Complements:**
   - [`BuildWpQueryMetaCompareCapableTrait`](#buildwpquerymetacomparecapabletrait)
 
 ---
@@ -135,7 +135,7 @@ Provides functionality for resolving the meta comparison value cast type from an
 
 Provides functionality for resolving the taxonomy comparison operator from an expression.
 
-- **Compliments:**
+- **Complements:**
   - [`BuildWpQueryTaxCompareCapableTrait`](#buildwpquerytaxcomparecapabletrait)
 
 ---
@@ -146,7 +146,7 @@ Provides functionality for resolving the taxonomy comparison operator from an ex
 
 Provides functionality for resolving the relation operator ("AND" or "OR") from an expression.
 
-- **Compliments:**
+- **Complements:**
   - [`BuildWpQueryRelationCapableTrait`](#buildwpqueryrelationcapabletrait)
 
 ---
