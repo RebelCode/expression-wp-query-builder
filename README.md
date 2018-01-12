@@ -15,9 +15,11 @@ other's implementation details. Most, if not all, traits are designed to provide
 abstracted methods. Other traits in the package will offer implementations for those abstracted methods, while also
 depending on their own abstracted methods.
  
-## Traits
+### Traits
 
-### [`BuildWpQueryArgsCapableTrait`]
+#### [`BuildWpQueryArgsCapableTrait`]
+
+**:eye: Build Args**
 
 Intended to provide the entry point functionality of building an expression into [`WP_Query`] args by attempting to
 build each expression term as either a comparison, meta query relation entry or taxonomy query relation entry. 
@@ -29,7 +31,9 @@ build each expression term as either a comparison, meta query relation entry or 
 
 ----
 
-### [`BuildWpQueryCompareCapableTrait`]
+#### [`BuildWpQueryCompareCapableTrait`]
+
+**:eye: Build Comparison**
 
 Provides functionality for building top-level comparison key-value pairs.
  
@@ -41,7 +45,9 @@ Provides functionality for building top-level comparison key-value pairs.
 
 ----
 
-### [`BuildWpQueryRelationCapableTrait`]
+#### [`BuildWpQueryRelationCapableTrait`]
+
+**:eye: Build Relation**
 
 Provides functionality for building relation arrays.
 
@@ -53,7 +59,9 @@ Provides functionality for building relation arrays.
 
 ----
 
-### [`BuildWpQueryRelationTermCapableTrait`]
+#### [`BuildWpQueryRelationTermCapableTrait`]
+
+**:eye: Build Relation Term**
 
 Provides functionality for building the terms in a relation array, by delegating building mechanism used depending on the current relation context, i.e. `meta_query` relation or `tax_query` relation.
 
@@ -65,7 +73,9 @@ Provides functionality for building the terms in a relation array, by delegating
 
 ----
 
-### [`BuildWpQueryMetaCompareCapableTrait`]
+#### [`BuildWpQueryMetaCompareCapableTrait`]
+
+**:eye: Build Meta Comparison**
 
 Provides functionality for building meta comparison arrays.
 
@@ -79,7 +89,9 @@ Provides functionality for building meta comparison arrays.
 
 ---
 
-### [`BuildWpQueryTaxCompareCapableTrait`]
+#### [`BuildWpQueryTaxCompareCapableTrait`]
+
+**:eye: Build Taxonomy Comparison**
 
 Provides functionality for building taxonomy comparison arrays.
 
@@ -93,7 +105,9 @@ Provides functionality for building taxonomy comparison arrays.
 
 ---
 
-### [`GetWpQueryMetaCompareOperatorCapableTrait`]
+#### [`GetWpQueryMetaCompareOperatorCapableTrait`]
+
+**:eye: Get Meta Comparison Operator**
 
 Provides functionality for resolving the meta comparison compare type from an expression.
 
@@ -102,7 +116,9 @@ Provides functionality for resolving the meta comparison compare type from an ex
 
 ---
 
-### [`GetWpQueryMetaCompareTypeCapableTrait`]
+#### [`GetWpQueryMetaCompareTypeCapableTrait`]
+
+**:eye: Get Meta Comparison Type**
 
 Provides functionality for resolving the meta comparison value cast type from an expression.
 
@@ -113,7 +129,9 @@ Provides functionality for resolving the meta comparison value cast type from an
 
 ---
 
-### [`GetWpQueryTaxCompareOperatorCapableTrait`]
+#### [`GetWpQueryTaxCompareOperatorCapableTrait`]
+
+**:eye: Get Taxonomy Comparison Operator**
 
 Provides functionality for resolving the taxonomy comparison operator from an expression.
 
@@ -122,7 +140,9 @@ Provides functionality for resolving the taxonomy comparison operator from an ex
 
 ---
 
-### [`GetWpQueryRelationOperatorCapableTrait`]
+#### [`GetWpQueryRelationOperatorCapableTrait`]
+
+**:eye: Get Relation Operator**
 
 Provides functionality for resolving the relation operator ("AND" or "OR") from an expression.
 
