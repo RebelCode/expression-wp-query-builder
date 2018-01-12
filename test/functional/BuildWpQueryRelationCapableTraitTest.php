@@ -8,7 +8,7 @@ use PHPUnit_Framework_MockObject_MockObject;
 use Xpmock\TestCase;
 
 /**
- * Tests {@see RebelCode\WordPress\Query\Builder\BuildWpQueryRelationCapableTrait}.
+ * Tests {@see \RebelCode\WordPress\Query\Builder\BuildWpQueryRelationCapableTrait}.
  *
  * @since [*next-version*]
  */

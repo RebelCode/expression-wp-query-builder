@@ -8,7 +8,7 @@ use PHPUnit_Framework_MockObject_MockObject;
 use Xpmock\TestCase;
 
 /**
- * Tests {@see RebelCode\WordPress\Query\Builder\BuildWpQueryMetaCompareCapableTrait}.
+ * Tests {@see \RebelCode\WordPress\Query\Builder\BuildWpQueryMetaCompareCapableTrait}.
  *
  * @since [*next-version*]
  */
