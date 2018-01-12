@@ -155,12 +155,16 @@ If all of the above traits are brought together, the implementing class is only 
 
 - `_buildWpQueryMetaRelation()` - recommended to redirect to `buildWpQueryRelation` with a "meta" mode.
 - `_buildWpQueryTaxRelation()` - recommended to redirect to `buildWpQueryRelation` with a "tax" mode.
-- `_getWpQueryCompareKey()` - recommended to search the expression for a [`VariableTermInterface`] or [`EntityFieldInterface`] (field).
+- `_getWpQueryCompareKey()` - recommended to search the expression for a [`VariableTermInterface`] or an 
+[`EntityFieldInterface`] and retrieve the field.
 - `_getWpQueryCompareValue()` - recommended to search the expression for a [`LiteralTermInterface`].
-- `_getWpQueryMetaCompareKey()` - recommended to search the expression for a [`VariableTermInterface`] or [`EntityFieldInterface`] (field).
+- `_getWpQueryMetaCompareKey()` - recommended to search the expression for a [`VariableTermInterface`] or
+an [`EntityFieldInterface`] and retrieve the field.
 - `_getWpQueryMetaCompareValue()` - recommended to search the expression for a [`LiteralTermInterface`].
-- `_getWpQueryTaxCompareTaxonomy()` - recommended to search the expression for an [`EntityFieldInterface`] (entity).
-- `_getWpQueryTaxCompareField()` - recommended to search the expression for an [`EntityFieldInterface`] (field).
+- `_getWpQueryTaxCompareTaxonomy()` - recommended to search the expression for an [`EntityFieldInterface`] and retrieve
+the entity.
+- `_getWpQueryTaxCompareField()` - recommended to search the expression for an [`EntityFieldInterface`] and retrieve
+the field.
 - `_getWpQueryTaxCompareTerms()` - recommended to search the expression for a [`LiteralTermInterface`].
 
 [`WP_Query`]: https://codex.wordpress.org/Class_Reference/WP_Query
