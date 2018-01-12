@@ -97,17 +97,18 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Dhii/expression-interface.git",
-                "reference": "1cf889002919f55c80f95512fb8b3c0735f9f8b1"
+                "reference": "6007761224a998e15f4e57a07e38d10999c431c9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Dhii/expression-interface/zipball/1cf889002919f55c80f95512fb8b3c0735f9f8b1",
-                "reference": "1cf889002919f55c80f95512fb8b3c0735f9f8b1",
+                "url": "https://api.github.com/repos/Dhii/expression-interface/zipball/6007761224a998e15f4e57a07e38d10999c431c9",
+                "reference": "6007761224a998e15f4e57a07e38d10999c431c9",
                 "shasum": ""
             },
             "require": {
                 "dhii/data-key-value-aware-interface": "^0.1",
                 "dhii/evaluable-interface": "^0.1",
+                "dhii/type-interface": "^0.1",
                 "php": "^5.3 | ^7.0"
             },
             "require-dev": {
@@ -139,7 +140,7 @@
                 }
             ],
             "description": "Interoperable interfaces for representing expressions.",
-            "time": "2018-01-04T08:37:21+00:00"
+            "time": "2018-01-11T13:35:47+00:00"
         },
         {
             "name": "dhii/sql-interface",
@@ -147,15 +148,16 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Dhii/sql-interface.git",
-                "reference": "3709f90683c9290fe7bbc09af08907122d0a8cce"
+                "reference": "a3fc43964064f91c26be843e878e353d12a73ff1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Dhii/sql-interface/zipball/3709f90683c9290fe7bbc09af08907122d0a8cce",
-                "reference": "3709f90683c9290fe7bbc09af08907122d0a8cce",
+                "url": "https://api.github.com/repos/Dhii/sql-interface/zipball/a3fc43964064f91c26be843e878e353d12a73ff1",
+                "reference": "a3fc43964064f91c26be843e878e353d12a73ff1",
                 "shasum": ""
             },
             "require": {
+                "dhii/expression-interface": "^0.2",
                 "php": "^5.3 | ^7.0"
             },
             "require-dev": {
@@ -187,7 +189,97 @@
                 }
             ],
             "description": "Interfaces for SQL resource abstraction.",
-            "time": "2018-01-03T12:28:42+00:00"
+            "time": "2018-01-12T10:06:16+00:00"
+        },
+        {
+            "name": "dhii/type-interface",
+            "version": "dev-develop",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Dhii/type-interface.git",
+                "reference": "1771aa0c9c3311b3eab5e04991d261d4caa9ea5f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Dhii/type-interface/zipball/1771aa0c9c3311b3eab5e04991d261d4caa9ea5f",
+                "reference": "1771aa0c9c3311b3eab5e04991d261d4caa9ea5f",
+                "shasum": ""
+            },
+            "require": {
+                "dhii/data-key-value-aware-interface": "^0.1",
+                "dhii/validation-interface": "^0.1",
+                "php": "^5.3 | ^7.0"
+            },
+            "require-dev": {
+                "codeclimate/php-test-reporter": "<=0.3.2",
+                "dhii/php-cs-fixer-config": "dev-php-5.3",
+                "phpunit/phpunit": "^4.8",
+                "ptrofimov/xpmock": "^1.1"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-develop": "0.1.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Dhii\\Type\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Dhii Team",
+                    "email": "development@dhii.co"
+                }
+            ],
+            "description": "Interfaces for type interoperability",
+            "time": "2018-01-10T15:30:06+00:00"
+        },
+        {
+            "name": "dhii/validation-interface",
+            "version": "v0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Dhii/validation-interface.git",
+                "reference": "492823aa1bb6b0f2391b1c50b5161a8b2619288f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Dhii/validation-interface/zipball/492823aa1bb6b0f2391b1c50b5161a8b2619288f",
+                "reference": "492823aa1bb6b0f2391b1c50b5161a8b2619288f",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^5.3 | ^7.0"
+            },
+            "require-dev": {
+                "dhii/php-cs-fixer-config": "dev-php-5.3",
+                "phpunit/phpunit": "^4.8",
+                "ptrofimov/xpmock": "^1.1"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Dhii\\Validation\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Dhii Team",
+                    "email": "development@dhii.co"
+                }
+            ],
+            "description": "A base interface for validators",
+            "time": "2017-03-10T13:38:44+00:00"
         }
     ],
     "packages-dev": [
