@@ -151,6 +151,18 @@ Provides functionality for resolving the relation operator ("AND" or "OR") from 
 
 ---
 
+If all of the above traits are brought together, the implementing class is only required to implement the following:
+
+- `_buildWpQueryMetaRelation()` - recommended to redirect to `buildWpQueryRelation` with a "meta" mode.
+- `_buildWpQueryTaxRelation()` - recommended to redirect to `buildWpQueryRelation` with a "tax" mode.
+- `_getWpQueryCompareKey()` - recommended to search the expression for a [`VariableTermInterface`] or [`EntityFieldInterface`] (field).
+- `_getWpQueryCompareValue()` - recommended to search the expression for a [`LiteralTermInterface`].
+- `_getWpQueryMetaCompareKey()` - recommended to search the expression for a [`VariableTermInterface`] or [`EntityFieldInterface`] (field).
+- `_getWpQueryMetaCompareValue()` - recommended to search the expression for a [`LiteralTermInterface`].
+- `_getWpQueryTaxCompareTaxonomy()` - recommended to search the expression for an [`EntityFieldInterface`] (entity).
+- `_getWpQueryTaxCompareField()` - recommended to search the expression for an [`EntityFieldInterface`] (field).
+- `_getWpQueryTaxCompareTerms()` - recommended to search the expression for a [`LiteralTermInterface`].
+
 [`WP_Query`]: https://codex.wordpress.org/Class_Reference/WP_Query
 
 [`BuildWpQueryArgsCapableTrait`]: src/BuildWpQueryArgsCapableTrait.php
@@ -164,3 +176,7 @@ Provides functionality for resolving the relation operator ("AND" or "OR") from 
 [`GetWpQueryMetaCompareOperatorCapableTrait`]: src/GetWpQueryMetaCompareOperatorCapableTrait.php
 [`GetWpQueryTaxCompareOperatorCapableTrait`]: src/GetWpQueryTaxCompareOperatorCapableTrait.php
 [`GetWpQueryRelationOperatorCapableTrait`]: src/GetWpQueryRelationOperatorCapableTrait.php
+
+[`LiteralTermInterface`]: https://github.com/Dhii/expression-interface/blob/develop/src/LiteralTermInterface.php
+[`VariableTermInterface`]: https://github.com/Dhii/expression-interface/blob/develop/src/VariableTermInterface.php
+[`EntityFieldInterface`]: https://github.com/Dhii/sql-interface/blob/develop/src/EntityFieldInterface.php
