@@ -3,6 +3,7 @@
 namespace RebelCode\Wordpress\Query\Builder;
 
 use Dhii\Expression\LogicalExpressionInterface;
+use Dhii\Expression\Type\RelationalTypeInterface;
 use Dhii\Util\String\StringableInterface as Stringable;
 use Exception as RootException;
 use InvalidArgumentException;
@@ -46,7 +47,7 @@ trait BuildWpQueryCompareCapableTrait
             );
         }
 
-        $key   = $this->_getWpQueryCompareKey($expression);
+        $key = $this->_getWpQueryCompareKey($expression);
         $value = $this->_getWpQueryCompareValue($expression);
 
         return [$key => $value];
@@ -61,7 +62,10 @@ trait BuildWpQueryCompareCapableTrait
      *
      * @return bool True if the expression is supported as a WP_Query compare expression, false if not.
      */
-    abstract protected function _isWpQueryCompareExpressionSupported(LogicalExpressionInterface $expression);
+    protected function _isWpQueryCompareExpressionSupported(LogicalExpressionInterface $expression)
+    {
+        return $this->_normalizeString($expression->getType()) === RelationalTypeInterface::T_EQUAL_TO;
+    }
 
     /**
      * Retrieves the WP_Query compare key from an expression.
@@ -88,6 +92,22 @@ trait BuildWpQueryCompareCapableTrait
      * @return mixed The compare value.
      */
     abstract protected function _getWpQueryCompareValue(LogicalExpressionInterface $expression);
+
+    /**
+     * Normalizes a value to its string representation.
+     *
+     * The values that can be normalized are any scalar values, as well as
+     * {@see StringableInterface).
+     *
+     * @since [*next-version*]
+     *
+     * @param string|int|float|bool|Stringable $subject The value to normalize to string.
+     *
+     * @throws InvalidArgumentException If the value cannot be normalized.
+     *
+     * @return string The string that resulted from normalization.
+     */
+    abstract protected function _normalizeString($subject);
 
     /**
      * Creates a new invalid argument exception.

@@ -3,12 +3,13 @@
 namespace RebelCode\WordPress\Query\Builder\FuncTest;
 
 use Dhii\Expression\LogicalExpressionInterface;
+use Dhii\Expression\Type\RelationalTypeInterface;
 use InvalidArgumentException;
 use PHPUnit_Framework_MockObject_MockObject;
 use Xpmock\TestCase;
 
 /**
- * Tests {@see RebelCode\WordPress\Query\Builder\BuildWpQueryCompareCapableTrait}.
+ * Tests {@see \RebelCode\WordPress\Query\Builder\BuildWpQueryCompareCapableTrait}.
  *
  * @since [*next-version*]
  */
@@ -37,9 +38,9 @@ class BuildWpQueryCompareCapableTraitTest extends TestCase
                             array_merge(
                                 $methods,
                                 [
-                                    '_isWpQueryCompareExpressionSupported',
                                     '_getWpQueryCompareKey',
                                     '_getWpQueryCompareValue',
+                                    '_normalizeString',
                                     '_createInvalidArgumentException',
                                     '__',
                                 ]
@@ -51,6 +52,11 @@ class BuildWpQueryCompareCapableTraitTest extends TestCase
         $mock->method('_createInvalidArgumentException')->willReturnCallback(
             function ($m, $c, $p) {
                 return new InvalidArgumentException($m, $c, $p);
+            }
+        );
+        $mock->method('_normalizeString')->willReturnCallback(
+            function($input) {
+                return strval($input);
             }
         );
 
@@ -104,12 +110,8 @@ class BuildWpQueryCompareCapableTraitTest extends TestCase
         $subject = $this->createInstance();
         $reflect = $this->reflect($subject);
 
-        $expression = $this->createLogicalExpression('EQUAL_TO');
+        $expression = $this->createLogicalExpression(RelationalTypeInterface::T_EQUAL_TO);
 
-        $subject->expects($this->once())
-                ->method('_isWpQueryCompareExpressionSupported')
-                ->with($expression)
-                ->willReturn(true);
         $subject->expects($this->once())
                 ->method('_getWpQueryCompareKey')
                 ->with($expression)
@@ -139,12 +141,7 @@ class BuildWpQueryCompareCapableTraitTest extends TestCase
         $subject = $this->createInstance();
         $reflect = $this->reflect($subject);
 
-        $expression = $this->createLogicalExpression('EQUAL_TO');
-
-        $subject->expects($this->once())
-                ->method('_isWpQueryCompareExpressionSupported')
-                ->with($expression)
-                ->willReturn(false);
+        $expression = $this->createLogicalExpression(RelationalTypeInterface::T_GREATER_THAN);
 
         $this->setExpectedException('InvalidArgumentException');
 
@@ -162,12 +159,8 @@ class BuildWpQueryCompareCapableTraitTest extends TestCase
         $subject = $this->createInstance();
         $reflect = $this->reflect($subject);
 
-        $expression = $this->createLogicalExpression('EQUAL_TO');
+        $expression = $this->createLogicalExpression(RelationalTypeInterface::T_EQUAL_TO);
 
-        $subject->expects($this->once())
-                ->method('_isWpQueryCompareExpressionSupported')
-                ->with($expression)
-                ->willReturn(true);
         $subject->expects($this->once())
                 ->method('_getWpQueryCompareKey')
                 ->with($expression)
@@ -189,12 +182,8 @@ class BuildWpQueryCompareCapableTraitTest extends TestCase
         $subject = $this->createInstance();
         $reflect = $this->reflect($subject);
 
-        $expression = $this->createLogicalExpression('EQUAL_TO');
+        $expression = $this->createLogicalExpression(RelationalTypeInterface::T_EQUAL_TO);
 
-        $subject->expects($this->once())
-                ->method('_isWpQueryCompareExpressionSupported')
-                ->with($expression)
-                ->willReturn(true);
         $subject->expects($this->once())
                 ->method('_getWpQueryCompareValue')
                 ->with($expression)
