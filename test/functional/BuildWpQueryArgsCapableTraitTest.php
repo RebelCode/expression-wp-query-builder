@@ -13,7 +13,7 @@ use Xpmock\TestCase;
  *
  * @since [*next-version*]
  */
-class BuildWpQueryArgsCapableTrait extends TestCase
+class BuildWpQueryArgsCapableTraitTest extends TestCase
 {
     /**
      * The class name of the test subject.
@@ -120,11 +120,6 @@ class BuildWpQueryArgsCapableTrait extends TestCase
             ]
         );
 
-        $subject->expects($this->once())
-                ->method('_isWpQueryExpressionSupported')
-                ->with($expression)
-                ->willReturn(true);
-
         $built1 = uniqid('built-');
         $built2 = uniqid('built-');
         $key2 = uniqid('key-');
@@ -212,11 +207,6 @@ class BuildWpQueryArgsCapableTrait extends TestCase
                 $child3 = $this->createLogicalExpression('C3'),
             ]
         );
-
-        $subject->expects($this->once())
-                ->method('_isWpQueryExpressionSupported')
-                ->with($expression)
-                ->willReturn(true);
 
         // Build function common for all build methods
         // throws an exception if the argument is the second child

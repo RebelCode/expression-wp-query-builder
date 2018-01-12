@@ -3,6 +3,7 @@
 namespace RebelCode\Wordpress\Query\Builder;
 
 use Dhii\Expression\LogicalExpressionInterface;
+use Dhii\Expression\Type\BooleanTypeInterface;
 use Dhii\Util\String\StringableInterface as Stringable;
 use Exception as RootException;
 use InvalidArgumentException;
@@ -107,7 +108,10 @@ trait BuildWpQueryArgsCapableTrait
      *
      * @return bool True if the expression is supported, false if not.
      */
-    abstract protected function _isWpQueryExpressionSupported(LogicalExpressionInterface $expression);
+    protected function _isWpQueryExpressionSupported(LogicalExpressionInterface $expression)
+    {
+        return $this->_normalizeString($expression->getType()) === BooleanTypeInterface::T_AND;
+    }
 
     /**
      * Builds a given logical expression into a WP_Query compare array args portion.
@@ -147,6 +151,22 @@ trait BuildWpQueryArgsCapableTrait
      * @return array The built taxonomy relation sub-array portion that represents it in WP_Query args.
      */
     abstract protected function _buildWpQueryTaxRelation(LogicalExpressionInterface $expression);
+
+    /**
+     * Normalizes a value to its string representation.
+     *
+     * The values that can be normalized are any scalar values, as well as
+     * {@see StringableInterface).
+     *
+     * @since [*next-version*]
+     *
+     * @param string|int|float|bool|Stringable $subject The value to normalize to string.
+     *
+     * @throws InvalidArgumentException If the value cannot be normalized.
+     *
+     * @return string The string that resulted from normalization.
+     */
+    abstract protected function _normalizeString($subject);
 
     /**
      * Creates a new invalid argument exception.
