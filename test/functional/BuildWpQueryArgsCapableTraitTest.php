@@ -3,12 +3,13 @@
 namespace RebelCode\WordPress\Query\FuncTest;
 
 use Dhii\Expression\LogicalExpressionInterface;
+use Dhii\Expression\Type\BooleanTypeInterface;
 use InvalidArgumentException;
 use PHPUnit_Framework_MockObject_MockObject;
 use Xpmock\TestCase;
 
 /**
- * Tests {@see TestSubject}.
+ * Tests {@see \RebelCode\WordPress\Query\Builder\BuildWpQueryArgsCapableTrait}.
  *
  * @since [*next-version*]
  */
@@ -37,10 +38,10 @@ class BuildWpQueryArgsCapableTrait extends TestCase
                             array_merge(
                                 $methods,
                                 [
-                                    '_isWpQueryExpressionSupported',
                                     '_buildWpQueryCompare',
                                     '_buildWpQueryMetaRelation',
                                     '_buildWpQueryTaxRelation',
+                                    '_normalizeString',
                                     '_createInvalidArgumentException',
                                     '__',
                                 ]
@@ -52,6 +53,11 @@ class BuildWpQueryArgsCapableTrait extends TestCase
         $mock->method('_createInvalidArgumentException')->willReturnCallback(
             function ($m, $c, $p) {
                 return new InvalidArgumentException($m, $c, $p);
+            }
+        );
+        $mock->method('_normalizeString')->willReturnCallback(
+            function($input) {
+                return strval($input);
             }
         );
 
@@ -106,7 +112,7 @@ class BuildWpQueryArgsCapableTrait extends TestCase
         $reflect = $this->reflect($subject);
 
         $expression = $this->createLogicalExpression(
-            '',
+            BooleanTypeInterface::T_AND,
             [
                 $child1 = $this->createLogicalExpression('C1'),
                 $child2 = $this->createLogicalExpression('C2'),
@@ -180,12 +186,7 @@ class BuildWpQueryArgsCapableTrait extends TestCase
         $subject = $this->createInstance();
         $reflect = $this->reflect($subject);
 
-        $expression = $this->createLogicalExpression('');
-
-        $subject->expects($this->once())
-                ->method('_isWpQueryExpressionSupported')
-                ->with($expression)
-                ->willReturn(false);
+        $expression = $this->createLogicalExpression(uniqid('unsupported-'));
 
         $this->setExpectedException('InvalidArgumentException');
 
@@ -204,7 +205,7 @@ class BuildWpQueryArgsCapableTrait extends TestCase
         $reflect = $this->reflect($subject);
 
         $expression = $this->createLogicalExpression(
-            '',
+            BooleanTypeInterface::T_AND,
             [
                 $child1 = $this->createLogicalExpression('C1'),
                 $child2 = $this->createLogicalExpression('C2'),
