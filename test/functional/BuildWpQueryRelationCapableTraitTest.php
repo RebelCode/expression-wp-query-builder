@@ -48,7 +48,7 @@ class BuildWpQueryRelationCapableTraitTest extends TestCase
         $mock = $builder->getMockForTrait();
         $mock->method('__')->willReturnArgument(0);
         $mock->method('_createInvalidArgumentException')->willReturnCallback(
-            function ($m, $c, $p) {
+            function($m, $c, $p) {
                 return new InvalidArgumentException($m, $c, $p);
             }
         );
@@ -103,6 +103,7 @@ class BuildWpQueryRelationCapableTraitTest extends TestCase
         $subject = $this->createInstance();
         $reflect = $this->reflect($subject);
 
+        $mode = uniqid('mode-');
         $expression = $this->createLogicalExpression(
             'AND',
             [
@@ -120,7 +121,11 @@ class BuildWpQueryRelationCapableTraitTest extends TestCase
 
         $subject->expects($this->exactly($numTerms))
                 ->method('_buildWpQueryRelationTerm')
-                ->withConsecutive([$child1], [$child2], [$child3])
+                ->withConsecutive(
+                    [$child1, $expression, $mode],
+                    [$child2, $expression, $mode],
+                    [$child3, $expression, $mode]
+                )
                 ->willReturnOnConsecutiveCalls(
                     $bc1 = uniqid('built-child-'),
                     $bc2 = uniqid('built-child-'),
@@ -136,7 +141,7 @@ class BuildWpQueryRelationCapableTraitTest extends TestCase
 
         $this->assertEquals(
             $expected,
-            $reflect->_buildWpQueryRelation($expression),
+            $reflect->_buildWpQueryRelation($expression, $mode),
             'Expected and retrieved results are not equal',
             0,
             10,

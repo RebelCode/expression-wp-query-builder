@@ -34,21 +34,20 @@ trait BuildWpQueryRelationCapableTrait
      * @since [*next-version*]
      *
      * @param LogicalExpressionInterface $expression The expression to build.
-     *
-     * @throws InvalidArgumentException If the given expression could not be built into a WP_Query relation.
+     * @param string|Stringable|null     $mode       Optional relation mode to distinguish between meta and tax mode.
      *
      * @return array The built expression, as the sub-array portion that represents it in WP_Query args.
      */
-    protected function _buildWpQueryRelation(LogicalExpressionInterface $expression)
+    protected function _buildWpQueryRelation(LogicalExpressionInterface $expression, $mode = null)
     {
         try {
             $relation = $this->_getWpQueryRelationOperator($expression);
-            $result   = [
+            $result = [
                 'relation' => $relation,
             ];
 
             foreach ($expression->getTerms() as $_term) {
-                $result[] = $this->_buildWpQueryRelationTerm($_term, $expression);
+                $result[] = $this->_buildWpQueryRelationTerm($_term, $expression, $mode);
             }
 
             return $result;
@@ -82,12 +81,17 @@ trait BuildWpQueryRelationCapableTrait
      *
      * @param TermInterface              $term   The term to build.
      * @param LogicalExpressionInterface $parent The parent expression of the term.
+     * @param string|Stringable|null     $mode   Optional relation mode to distinguish between meta and tax mode.
      *
      * @throws InvalidArgumentException If the term could not be built.
      *
      * @return array The built term as the sub-array portion that represents it in WP_Query args.
      */
-    abstract protected function _buildWpQueryRelationTerm(TermInterface $term, LogicalExpressionInterface $parent);
+    abstract protected function _buildWpQueryRelationTerm(
+        TermInterface $term,
+        LogicalExpressionInterface $parent,
+        $mode = null
+    );
 
     /**
      * Creates a new invalid argument exception.
