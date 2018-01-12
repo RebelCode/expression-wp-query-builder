@@ -1,6 +1,6 @@
 {
-    "name": "rebelcode/expression-wp-query-builder",
-    "description": "A library for building WP_Query args using expressions.",
+    "name": "rebelcode/expression-wp-query-builder-abstract",
+    "description": "Abstract functionality for building WP_Query args using expressions.",
     "type": "library",
     "license": "GPL-3.0",
     "authors": [
