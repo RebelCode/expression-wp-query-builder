@@ -10,7 +10,7 @@ Abstract functionality for building `WP_Query` args using expressions.
 ## Details
 
 This package provides abstract functionality for the most implementation aspects of building [`WP_Query`] arguments from
-expressions. The traits in this package are meant to compliment each other, while also remaining agnostic of the each
+expressions. The traits in this package are meant to complement each other, while also remaining agnostic of the each
 other's implementation details. Most, if not all, traits are designed to provide functionality that depends on
 abstracted methods. Other traits in the package will offer implementations for those abstracted methods, while also
 depending on their own abstracted methods.
