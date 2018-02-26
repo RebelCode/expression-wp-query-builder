@@ -3,7 +3,7 @@
 namespace RebelCode\WordPress\Query\Builder\FuncTest;
 
 use Dhii\Expression\LogicalExpressionInterface;
-use InvalidArgumentException;
+use OutOfRangeException;
 use PHPUnit_Framework_MockObject_MockObject;
 use Xpmock\TestCase;
 
@@ -39,7 +39,7 @@ class BuildWpQueryRelationCapableTraitTest extends TestCase
                                 [
                                     '_getWpQueryRelationOperator',
                                     '_buildWpQueryRelationTerm',
-                                    '_createInvalidArgumentException',
+                                    '_createOutOfRangeException',
                                     '__',
                                 ]
                             )
@@ -47,9 +47,9 @@ class BuildWpQueryRelationCapableTraitTest extends TestCase
 
         $mock = $builder->getMockForTrait();
         $mock->method('__')->willReturnArgument(0);
-        $mock->method('_createInvalidArgumentException')->willReturnCallback(
+        $mock->method('_createOutOfRangeException')->willReturnCallback(
             function($m, $c, $p) {
-                return new InvalidArgumentException($m, $c, $p);
+                return new OutOfRangeException($m, $c, $p);
             }
         );
 
@@ -165,9 +165,9 @@ class BuildWpQueryRelationCapableTraitTest extends TestCase
         $subject->expects($this->once())
                 ->method('_getWpQueryRelationOperator')
                 ->with($expression)
-                ->willThrowException(new InvalidArgumentException());
+                ->willThrowException(new OutOfRangeException());
 
-        $this->setExpectedException('InvalidArgumentException');
+        $this->setExpectedException('OutOfRangeException');
 
         $reflect->_buildWpQueryRelation($expression);
     }
@@ -195,9 +195,9 @@ class BuildWpQueryRelationCapableTraitTest extends TestCase
         $subject->expects($this->once())
                 ->method('_buildWpQueryRelationTerm')
                 ->with($expression)
-                ->willThrowException(new InvalidArgumentException());
+                ->willThrowException(new OutOfRangeException());
 
-        $this->setExpectedException('InvalidArgumentException');
+        $this->setExpectedException('OutOfRangeException');
 
         $reflect->_buildWpQueryRelation($expression);
     }

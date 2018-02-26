@@ -7,6 +7,7 @@ use Dhii\Expression\Type\BooleanTypeInterface as BoolType;
 use Dhii\Util\String\StringableInterface as Stringable;
 use Exception as RootException;
 use InvalidArgumentException;
+use OutOfRangeException;
 
 /**
  * Common functionality for objects that can retrieve the `WP_Query` relation operator for an expression.
@@ -34,7 +35,7 @@ trait GetWpQueryRelationOperatorCapableTrait
      *
      * @param LogicalExpressionInterface $expression The expression instance to extract from.
      *
-     * @throws InvalidArgumentException If no relation operator could be determined for the given expression.
+     * @throws OutOfRangeException If no relation operator could be determined for the given expression.
      *
      * @return string The relation operator string.
      */
@@ -46,7 +47,7 @@ trait GetWpQueryRelationOperatorCapableTrait
             return $this->wpQueryRelationOperatorMap[$key];
         }
 
-        throw $this->_createInvalidArgumentException(
+        throw $this->_createOutOfRangeException(
             $this->__('Invalid expression - no relation operator matches the given expression'),
             null,
             null,
@@ -71,7 +72,7 @@ trait GetWpQueryRelationOperatorCapableTrait
     abstract protected function _normalizeString($subject);
 
     /**
-     * Creates a new invalid argument exception.
+     * Creates a new Out Of Range exception.
      *
      * @since [*next-version*]
      *
@@ -80,9 +81,9 @@ trait GetWpQueryRelationOperatorCapableTrait
      * @param RootException|null     $previous The inner exception for chaining, if any.
      * @param mixed|null             $argument The invalid argument, if any.
      *
-     * @return InvalidArgumentException The new exception.
+     * @return OutOfRangeException The new exception.
      */
-    abstract protected function _createInvalidArgumentException(
+    abstract protected function _createOutOfRangeException(
         $message = null,
         $code = null,
         RootException $previous = null,

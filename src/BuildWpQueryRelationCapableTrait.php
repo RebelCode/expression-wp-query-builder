@@ -6,7 +6,7 @@ use Dhii\Expression\LogicalExpressionInterface;
 use Dhii\Expression\TermInterface;
 use Dhii\Util\String\StringableInterface as Stringable;
 use Exception as RootException;
-use InvalidArgumentException;
+use OutOfRangeException;
 
 /**
  * Common functionality for objects that can build the relation portions of `WP_Query` array args.
@@ -37,6 +37,8 @@ trait BuildWpQueryRelationCapableTrait
      * @param string|Stringable|null     $mode       Optional relation mode to distinguish between meta and tax mode.
      *
      * @return array The built expression, as the sub-array portion that represents it in WP_Query args.
+     *
+     * @throws OutOfRangeException If the given expression could not be built as a `WP_Query` relation.
      */
     protected function _buildWpQueryRelation(LogicalExpressionInterface $expression, $mode = null)
     {
@@ -52,7 +54,7 @@ trait BuildWpQueryRelationCapableTrait
 
             return $result;
         } catch (RootException $exception) {
-            throw $this->_createInvalidArgumentException(
+            throw $this->_createOutOfRangeException(
                 $this->__('Expression is not a valid WP_Query relation'),
                 null,
                 $exception,
@@ -68,7 +70,7 @@ trait BuildWpQueryRelationCapableTrait
      *
      * @param LogicalExpressionInterface $expression The expression instance to extract from.
      *
-     * @throws InvalidArgumentException If no relation operator could be determined for the given expression.
+     * @throws OutOfRangeException If no relation operator could be determined for the given expression.
      *
      * @return string The relation operator string.
      */
@@ -83,7 +85,7 @@ trait BuildWpQueryRelationCapableTrait
      * @param LogicalExpressionInterface $parent The parent expression of the term.
      * @param string|Stringable|null     $mode   Optional relation mode to distinguish between meta and tax mode.
      *
-     * @throws InvalidArgumentException If the term could not be built.
+     * @throws OutOfRangeException If the term could not be built.
      *
      * @return array The built term as the sub-array portion that represents it in WP_Query args.
      */
@@ -94,7 +96,7 @@ trait BuildWpQueryRelationCapableTrait
     );
 
     /**
-     * Creates a new invalid argument exception.
+     * Creates a new Out Of Range exception.
      *
      * @since [*next-version*]
      *
@@ -103,9 +105,9 @@ trait BuildWpQueryRelationCapableTrait
      * @param RootException|null     $previous The inner exception for chaining, if any.
      * @param mixed|null             $argument The invalid argument, if any.
      *
-     * @return InvalidArgumentException The new exception.
+     * @return OutOfRangeException The new exception.
      */
-    abstract protected function _createInvalidArgumentException(
+    abstract protected function _createOutOfRangeException(
         $message = null,
         $code = null,
         RootException $previous = null,

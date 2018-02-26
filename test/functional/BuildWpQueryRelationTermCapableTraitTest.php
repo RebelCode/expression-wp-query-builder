@@ -5,7 +5,7 @@ namespace RebelCode\WordPress\Query\Builder\FuncTest;
 use Dhii\Expression\LogicalExpressionInterface;
 use Dhii\Expression\Type\BooleanTypeInterface;
 use Dhii\Expression\Type\RelationalTypeInterface;
-use InvalidArgumentException;
+use OutOfRangeException;
 use PHPUnit_Framework_MockObject_MockObject;
 use Xpmock\TestCase;
 
@@ -42,18 +42,18 @@ class BuildWpQueryRelationTermCapableTraitTest extends TestCase
                                     '_buildWpQueryRelation',
                                     '_buildWpQueryMetaCompare',
                                     '_buildWpQueryTaxCompare',
-                                    '__',
-                                    '_createInvalidArgumentException',
+                                    '_createOutOfRangeException',
                                     '_normalizeString',
+                                    '__',
                                 ]
                             )
                         );
 
         $mock = $builder->getMockForTrait();
         $mock->method('__')->willReturnArgument(0);
-        $mock->method('_createInvalidArgumentException')->willReturnCallback(
+        $mock->method('_createOutOfRangeException')->willReturnCallback(
             function($m = '', $c = 0, $p = null) {
-                return new InvalidArgumentException($m, $c, $p);
+                return new OutOfRangeException($m, $c, $p);
             }
         );
         $mock->method('_normalizeString')->willReturnCallback(
@@ -172,7 +172,7 @@ class BuildWpQueryRelationTermCapableTraitTest extends TestCase
         $subject->expects($this->once())
                 ->method('_buildWpQueryRelation')
                 ->with($term, $mode)
-                ->willThrowException(new InvalidArgumentException());
+                ->willThrowException(new OutOfRangeException());
 
         $subject->expects($this->once())
                 ->method('_buildWpQueryMetaCompare')
@@ -209,7 +209,7 @@ class BuildWpQueryRelationTermCapableTraitTest extends TestCase
         $subject->expects($this->once())
                 ->method('_buildWpQueryRelation')
                 ->with($term, $mode)
-                ->willThrowException(new InvalidArgumentException());
+                ->willThrowException(new OutOfRangeException());
 
         $subject->expects($this->once())
                 ->method('_buildWpQueryTaxCompare')
@@ -242,7 +242,7 @@ class BuildWpQueryRelationTermCapableTraitTest extends TestCase
         // Use a valid mode to ensure that the exception thrown is not caused by an invalid mode
         $mode = $reflect->wpQueryRelationModeTax;
 
-        $this->setExpectedException('InvalidArgumentException');
+        $this->setExpectedException('OutOfRangeException');
 
         $reflect->_buildWpQueryRelationTerm($term, $expression);
     }
@@ -269,9 +269,9 @@ class BuildWpQueryRelationTermCapableTraitTest extends TestCase
         $subject->expects($this->once())
                 ->method('_buildWpQueryRelation')
                 ->with($term, $mode)
-                ->willThrowException(new InvalidArgumentException());
+                ->willThrowException(new OutOfRangeException());
 
-        $this->setExpectedException('InvalidArgumentException');
+        $this->setExpectedException('OutOfRangeException');
 
         $reflect->_buildWpQueryRelationTerm($term, $expression, $mode);
     }

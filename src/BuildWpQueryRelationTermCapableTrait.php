@@ -7,7 +7,7 @@ use Dhii\Expression\TermInterface;
 use Dhii\Util\String\StringableInterface as Stringable;
 use Dhii\Util\String\StringableInterface;
 use Exception as RootException;
-use InvalidArgumentException;
+use OutOfRangeException;
 
 /**
  * Common functionality for objects that can build relation terms.
@@ -45,7 +45,7 @@ trait BuildWpQueryRelationTermCapableTrait
      * @param LogicalExpressionInterface      $parent The parent expression of the term.
      * @param string|StringableInterface|null $mode   Optional relation mode to distinguish between meta and tax mode.
      *
-     * @throws InvalidArgumentException If the term could not be built.
+     * @throws OutOfRangeException If the term could not be built.
      *
      * @return array The built term as the sub-array portion that represents it in WP_Query args.
      */
@@ -56,7 +56,7 @@ trait BuildWpQueryRelationTermCapableTrait
     ) {
 
         if (!($term instanceof LogicalExpressionInterface)) {
-            throw $this->_createInvalidArgumentException(
+            throw $this->_createOutOfRangeException(
                 $this->__('Relation term is not a not a logical expression'),
                 null,
                 null,
@@ -65,27 +65,13 @@ trait BuildWpQueryRelationTermCapableTrait
         }
 
         try {
+            // Try to build a nested relation expression
             // Will throw if not a WP_Query relation expression
             return $this->_buildWpQueryRelation($term, $mode);
-        } catch (InvalidArgumentException $iArgEx) {
-            return $this->_buildWpQueryMetaTaxCompare($term, $mode);
+        } catch (OutOfRangeException $outOfRangeException) {
+            // Do nothing - if an exception was thrown, then expression is not a nested relation
         }
-    }
 
-    /**
-     * Attempts to build a relation term as a meta or tax comparison.
-     *
-     * @since [*next-version*]
-     *
-     * @param LogicalExpressionInterface $term The term to build.
-     * @param null                       $mode Optional relation mode to distinguish between meta and tax mode.
-     *
-     * @return array The built term as the meta or tax comparison sub-array potion.
-     *
-     * @throws InvalidArgumentException If the relation mode arg is invalid.
-     */
-    protected function _buildWpQueryMetaTaxCompare(LogicalExpressionInterface $term, $mode = null)
-    {
         $mode = $this->_normalizeString($mode);
 
         if ($mode === $this->wpQueryRelationModeMeta) {
@@ -96,7 +82,7 @@ trait BuildWpQueryRelationTermCapableTrait
             return $this->_buildWpQueryTaxCompare($term);
         }
 
-        throw $this->_createInvalidArgumentException(
+        throw $this->_createOutOfRangeException(
             $this->__('Invalid relation mode - cannot build relation term'),
             null,
             null,
@@ -123,7 +109,7 @@ trait BuildWpQueryRelationTermCapableTrait
      *
      * @param LogicalExpressionInterface $expression The expression to build.
      *
-     * @throws InvalidArgumentException If the given expression could not be built into a WP_Query meta compare.
+     * @throws OutOfRangeException If the given expression could not be built into a WP_Query meta compare.
      *
      * @return array The built meta compare sub-array portion that represents it in WP_Query args.
      */
@@ -150,14 +136,14 @@ trait BuildWpQueryRelationTermCapableTrait
      *
      * @param string|int|float|bool|Stringable $subject The value to normalize to string.
      *
-     * @throws InvalidArgumentException If the value cannot be normalized.
+     * @throws OutOfRangeException If the value cannot be normalized.
      *
      * @return string The string that resulted from normalization.
      */
     abstract protected function _normalizeString($subject);
 
     /**
-     * Creates a new invalid argument exception.
+     * Creates a new Out Of Range exception.
      *
      * @since [*next-version*]
      *
@@ -166,9 +152,9 @@ trait BuildWpQueryRelationTermCapableTrait
      * @param RootException|null     $previous The inner exception for chaining, if any.
      * @param mixed|null             $argument The invalid argument, if any.
      *
-     * @return InvalidArgumentException The new exception.
+     * @return OutOfRangeException The new exception.
      */
-    abstract protected function _createInvalidArgumentException(
+    abstract protected function _createOutOfRangeException(
         $message = null,
         $code = null,
         RootException $previous = null,

@@ -7,6 +7,7 @@ use Dhii\Expression\Type\BooleanTypeInterface;
 use Dhii\Util\String\StringableInterface as Stringable;
 use Exception as RootException;
 use InvalidArgumentException;
+use OutOfRangeException;
 
 /**
  * Common functionality for objects that can build expressions into
@@ -23,14 +24,14 @@ trait BuildWpQueryArgsCapableTrait
      *
      * @param LogicalExpressionInterface $expression The expression to build into the `WP_Query` array argument.
      *
-     * @throws InvalidArgumentException If the given expression could not be built.
+     * @throws OutOfRangeException If the given expression or any of its terms are not supported.
      *
      * @return array The resulting `WP_Query` array argument.
      */
     protected function _buildWpQueryArgs(LogicalExpressionInterface $expression)
     {
         if (!$this->_isWpQueryExpressionSupported($expression)) {
-            throw $this->_createInvalidArgumentException(
+            throw $this->_createOutOfRangeException(
                 $this->__('Expression is not supported'),
                 null,
                 null,
@@ -42,7 +43,7 @@ trait BuildWpQueryArgsCapableTrait
 
         foreach ($expression->getTerms() as $_term) {
             if (!($_term instanceof LogicalExpressionInterface)) {
-                throw $this->_createInvalidArgumentException(
+                throw $this->_createOutOfRangeException(
                     $this->__('Expression term is not a logical expression'),
                     null,
                     null,
@@ -67,7 +68,7 @@ trait BuildWpQueryArgsCapableTrait
      *
      * @param LogicalExpressionInterface $expression The expression to attempt to build.
      *
-     * @throws InvalidArgumentException If the expression could not be built.
+     * @throws OutOfRangeException If no building mechanism could be determined for the given expression.
      *
      * @return array The resulting array, as a portion of the final result.
      */
@@ -76,22 +77,22 @@ trait BuildWpQueryArgsCapableTrait
         // Attempt to build as a meta query
         try {
             return ['meta_query' => $this->_buildWpQueryMetaRelation($expression)];
-        } catch (InvalidArgumentException $exception) {
+        } catch (OutOfRangeException $exception) {
         }
 
         // Attempt to build as a taxonomy query
         try {
             return ['tax_query' => $this->_buildWpQueryTaxRelation($expression)];
-        } catch (InvalidArgumentException $exception) {
+        } catch (OutOfRangeException $exception) {
         }
 
         // Attempt to build as a top-level compare key-value entry
         try {
             return $this->_buildWpQueryCompare($expression);
-        } catch (InvalidArgumentException $exception) {
+        } catch (OutOfRangeException $exception) {
         }
 
-        throw $this->_createInvalidArgumentException(
+        throw $this->_createOutOfRangeException(
             $this->__('Expression could not be built - no supported build method found'),
             null,
             null,
@@ -120,7 +121,7 @@ trait BuildWpQueryArgsCapableTrait
      *
      * @param LogicalExpressionInterface $expression The expression to build.
      *
-     * @throws InvalidArgumentException If the given expression could not be built into a WP_Query compare.
+     * @throws OutOfRangeException If the given expression could not be built into a WP_Query compare.
      *
      * @return array The built expression, as the sub-array portion that represents it in WP_Query args.
      */
@@ -133,7 +134,7 @@ trait BuildWpQueryArgsCapableTrait
      *
      * @param LogicalExpressionInterface $expression The expression to build.
      *
-     * @throws InvalidArgumentException If the given expression could not be built into a WP_Query meta relation.
+     * @throws OutOfRangeException If the given expression could not be built into a WP_Query meta relation.
      *
      * @return array The built meta relation sub-array portion that represents it in WP_Query args.
      */
@@ -146,7 +147,7 @@ trait BuildWpQueryArgsCapableTrait
      *
      * @param LogicalExpressionInterface $expression The expression to build.
      *
-     * @throws InvalidArgumentException If the given expression could not be built into a WP_Query taxonomy relation.
+     * @throws OutOfRangeException If the given expression could not be built into a WP_Query taxonomy relation.
      *
      * @return array The built taxonomy relation sub-array portion that represents it in WP_Query args.
      */
@@ -169,7 +170,7 @@ trait BuildWpQueryArgsCapableTrait
     abstract protected function _normalizeString($subject);
 
     /**
-     * Creates a new invalid argument exception.
+     * Creates a new Out Of Range exception.
      *
      * @since [*next-version*]
      *
@@ -178,9 +179,9 @@ trait BuildWpQueryArgsCapableTrait
      * @param RootException|null     $previous The inner exception for chaining, if any.
      * @param mixed|null             $argument The invalid argument, if any.
      *
-     * @return InvalidArgumentException The new exception.
+     * @return OutOfRangeException The new exception.
      */
-    abstract protected function _createInvalidArgumentException(
+    abstract protected function _createOutOfRangeException(
         $message = null,
         $code = null,
         RootException $previous = null,

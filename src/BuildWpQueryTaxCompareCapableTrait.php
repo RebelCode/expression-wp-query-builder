@@ -5,7 +5,7 @@ namespace RebelCode\Wordpress\Query\Builder;
 use Dhii\Expression\LogicalExpressionInterface;
 use Dhii\Util\String\StringableInterface as Stringable;
 use Exception as RootException;
-use InvalidArgumentException;
+use OutOfRangeException;
 
 /**
  * Common functionality for objects that can build `WP_Query` taxonomy compare expression args.
@@ -34,6 +34,8 @@ trait BuildWpQueryTaxCompareCapableTrait
      * @param LogicalExpressionInterface $expression The expression to build.
      *
      * @return array The built taxonomy compare sub-array portion that represents it in WP_Query args.
+     *
+     * @throws OutOfRangeException If the given expression is not supported as a `WP_Query` taxonomy compare.
      */
     protected function _buildWpQueryTaxCompare(LogicalExpressionInterface $expression)
     {
@@ -47,7 +49,7 @@ trait BuildWpQueryTaxCompareCapableTrait
 
             return $result;
         } catch (RootException $exception) {
-            throw $this->_createInvalidArgumentException(
+            throw $this->_createOutOfRangeException(
                 $this->__('Expression could not be built into a WP_Query taxonomy compare'),
                 null,
                 $exception,
@@ -63,7 +65,7 @@ trait BuildWpQueryTaxCompareCapableTrait
      *
      * @param LogicalExpressionInterface $expression The expression instance to extract from.
      *
-     * @throws InvalidArgumentException If the taxonomy compare name cannot be determined.
+     * @throws OutOfRangeException If the taxonomy compare name cannot be determined.
      *
      * @return string The taxonomy name string.
      */
@@ -76,7 +78,7 @@ trait BuildWpQueryTaxCompareCapableTrait
      *
      * @param LogicalExpressionInterface $expression The expression instance to extract from.
      *
-     * @throws InvalidArgumentException If the taxonomy compare field cannot be determined.
+     * @throws OutOfRangeException If the taxonomy compare field cannot be determined.
      *
      * @return string The taxonomy field string.
      */
@@ -89,7 +91,7 @@ trait BuildWpQueryTaxCompareCapableTrait
      *
      * @param LogicalExpressionInterface $expression The expression instance to extract from.
      *
-     * @throws InvalidArgumentException If the taxonomy compare field cannot be determined.
+     * @throws OutOfRangeException If the taxonomy compare field cannot be determined.
      *
      * @return array A list of taxonomy term strings.
      */
@@ -109,7 +111,7 @@ trait BuildWpQueryTaxCompareCapableTrait
     abstract protected function _getWpQueryTaxCompareOperator(LogicalExpressionInterface $expression);
 
     /**
-     * Creates a new invalid argument exception.
+     * Creates a new Out Of Range exception.
      *
      * @since [*next-version*]
      *
@@ -118,9 +120,9 @@ trait BuildWpQueryTaxCompareCapableTrait
      * @param RootException|null     $previous The inner exception for chaining, if any.
      * @param mixed|null             $argument The invalid argument, if any.
      *
-     * @return InvalidArgumentException The new exception.
+     * @return OutOfRangeException The new exception.
      */
-    abstract protected function _createInvalidArgumentException(
+    abstract protected function _createOutOfRangeException(
         $message = null,
         $code = null,
         RootException $previous = null,

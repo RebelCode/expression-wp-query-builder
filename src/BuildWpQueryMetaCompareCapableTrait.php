@@ -5,7 +5,7 @@ namespace RebelCode\Wordpress\Query\Builder;
 use Dhii\Expression\LogicalExpressionInterface;
 use Dhii\Util\String\StringableInterface as Stringable;
 use Exception as RootException;
-use InvalidArgumentException;
+use OutOfRangeException;
 
 /**
  * Common functionality for objects that can build expressions into `WP_Query` meta comparisons.
@@ -34,7 +34,7 @@ trait BuildWpQueryMetaCompareCapableTrait
      *
      * @param LogicalExpressionInterface $expression The expression to build.
      *
-     * @throws InvalidArgumentException If the given expression could not be built into a WP_Query meta compare.
+     * @throws OutOfRangeException If the given expression could not be built into a WP_Query meta compare.
      *
      * @return array The built meta compare sub-array portion that represents it in WP_Query args.
      */
@@ -50,7 +50,7 @@ trait BuildWpQueryMetaCompareCapableTrait
 
             return $result;
         } catch (RootException $exception) {
-            throw $this->_createInvalidArgumentException(
+            throw $this->_createOutOfRangeException(
                 $this->__('Expression could not be built into a WP_Query meta compare'),
                 null,
                 $exception,
@@ -66,7 +66,7 @@ trait BuildWpQueryMetaCompareCapableTrait
      *
      * @param LogicalExpressionInterface $expression The expression instance to extract from.
      *
-     * @throws InvalidArgumentException If the meta compare key cannot be determined.
+     * @throws OutOfRangeException If the meta compare key cannot be determined.
      *
      * @return string The compare key string.
      */
@@ -79,7 +79,7 @@ trait BuildWpQueryMetaCompareCapableTrait
      *
      * @param LogicalExpressionInterface $expression The expression instance to extract from.
      *
-     * @throws InvalidArgumentException If the meta compare value cannot be determined.
+     * @throws OutOfRangeException If the meta compare value cannot be determined.
      *
      * @return mixed The compare value.
      */
@@ -105,14 +105,14 @@ trait BuildWpQueryMetaCompareCapableTrait
      *
      * @param LogicalExpressionInterface $expression The expression instance to extract from.
      *
-     * @throws InvalidArgumentException If the meta compare operator cannot be determined.
+     * @throws OutOfRangeException If the meta compare operator cannot be determined.
      *
      * @return string The compare operator string.
      */
     abstract protected function _getWpQueryMetaCompareOperator(LogicalExpressionInterface $expression);
 
     /**
-     * Creates a new invalid argument exception.
+     * Creates a new Out Of Range exception.
      *
      * @since [*next-version*]
      *
@@ -121,9 +121,9 @@ trait BuildWpQueryMetaCompareCapableTrait
      * @param RootException|null     $previous The inner exception for chaining, if any.
      * @param mixed|null             $argument The invalid argument, if any.
      *
-     * @return InvalidArgumentException The new exception.
+     * @return OutOfRangeException The new exception.
      */
-    abstract protected function _createInvalidArgumentException(
+    abstract protected function _createOutOfRangeException(
         $message = null,
         $code = null,
         RootException $previous = null,

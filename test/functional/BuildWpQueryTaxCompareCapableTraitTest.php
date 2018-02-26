@@ -3,7 +3,7 @@
 namespace RebelCode\WordPress\Query\Builder\FuncTest;
 
 use Dhii\Expression\LogicalExpressionInterface;
-use InvalidArgumentException;
+use OutOfRangeException;
 use PHPUnit_Framework_MockObject_MockObject;
 use Xpmock\TestCase;
 
@@ -41,7 +41,7 @@ class BuildWpQueryTaxCompareCapableTraitTest extends TestCase
                                     '_getWpQueryTaxCompareField',
                                     '_getWpQueryTaxCompareTerms',
                                     '_getWpQueryTaxCompareOperator',
-                                    '_createInvalidArgumentException',
+                                    '_createOutOfRangeException',
                                     '__',
                                 ]
                             )
@@ -49,9 +49,9 @@ class BuildWpQueryTaxCompareCapableTraitTest extends TestCase
 
         $mock = $builder->getMockForTrait();
         $mock->method('__')->willReturnArgument(0);
-        $mock->method('_createInvalidArgumentException')->willReturnCallback(
+        $mock->method('_createOutOfRangeException')->willReturnCallback(
             function ($m, $c, $p) {
-                return new InvalidArgumentException($m, $c, $p);
+                return new OutOfRangeException($m, $c, $p);
             }
         );
 
@@ -154,9 +154,9 @@ class BuildWpQueryTaxCompareCapableTraitTest extends TestCase
         $subject->expects($this->once())
                 ->method('_getWpQueryTaxCompareTaxonomy')
                 ->with($expression)
-                ->willThrowException(new InvalidArgumentException());
+                ->willThrowException(new OutOfRangeException());
 
-        $this->setExpectedException('InvalidArgumentException');
+        $this->setExpectedException('OutOfRangeException');
 
         $reflect->_buildWpQueryTaxCompare($expression);
     }
@@ -177,9 +177,9 @@ class BuildWpQueryTaxCompareCapableTraitTest extends TestCase
         $subject->expects($this->once())
                 ->method('_getWpQueryTaxCompareField')
                 ->with($expression)
-                ->willThrowException(new InvalidArgumentException());
+                ->willThrowException(new OutOfRangeException());
 
-        $this->setExpectedException('InvalidArgumentException');
+        $this->setExpectedException('OutOfRangeException');
 
         $reflect->_buildWpQueryTaxCompare($expression);
     }
@@ -200,9 +200,9 @@ class BuildWpQueryTaxCompareCapableTraitTest extends TestCase
         $subject->expects($this->once())
                 ->method('_getWpQueryTaxCompareTerms')
                 ->with($expression)
-                ->willThrowException(new InvalidArgumentException());
+                ->willThrowException(new OutOfRangeException());
 
-        $this->setExpectedException('InvalidArgumentException');
+        $this->setExpectedException('OutOfRangeException');
 
         $reflect->_buildWpQueryTaxCompare($expression);
     }
@@ -223,9 +223,9 @@ class BuildWpQueryTaxCompareCapableTraitTest extends TestCase
         $subject->expects($this->once())
                 ->method('_getWpQueryTaxCompareOperator')
                 ->with($expression)
-                ->willThrowException(new InvalidArgumentException());
+                ->willThrowException(new OutOfRangeException());
 
-        $this->setExpectedException('InvalidArgumentException');
+        $this->setExpectedException('OutOfRangeException');
 
         $reflect->_buildWpQueryTaxCompare($expression);
     }

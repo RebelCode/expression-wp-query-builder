@@ -4,7 +4,7 @@ namespace RebelCode\WordPress\Query\FuncTest;
 
 use Dhii\Expression\LogicalExpressionInterface;
 use Dhii\Expression\Type\BooleanTypeInterface;
-use InvalidArgumentException;
+use OutOfRangeException;
 use PHPUnit_Framework_MockObject_MockObject;
 use Xpmock\TestCase;
 
@@ -42,7 +42,7 @@ class BuildWpQueryArgsCapableTraitTest extends TestCase
                                     '_buildWpQueryMetaRelation',
                                     '_buildWpQueryTaxRelation',
                                     '_normalizeString',
-                                    '_createInvalidArgumentException',
+                                    '_createOutOfRangeException',
                                     '__',
                                 ]
                             )
@@ -50,9 +50,9 @@ class BuildWpQueryArgsCapableTraitTest extends TestCase
 
         $mock = $builder->getMockForTrait();
         $mock->method('__')->willReturnArgument(0);
-        $mock->method('_createInvalidArgumentException')->willReturnCallback(
+        $mock->method('_createOutOfRangeException')->willReturnCallback(
             function ($m, $c, $p) {
-                return new InvalidArgumentException($m, $c, $p);
+                return new OutOfRangeException($m, $c, $p);
             }
         );
         $mock->method('_normalizeString')->willReturnCallback(
@@ -129,7 +129,7 @@ class BuildWpQueryArgsCapableTraitTest extends TestCase
         $subject->method('_buildWpQueryTaxRelation')->willReturnCallback(
             function ($expr) use ($child1, $built1) {
                 if ($expr !== $child1) {
-                    throw new InvalidArgumentException();
+                    throw new OutOfRangeException();
                 }
 
                 return $built1;
@@ -140,7 +140,7 @@ class BuildWpQueryArgsCapableTraitTest extends TestCase
         $subject->method('_buildWpQueryCompare')->willReturnCallback(
             function ($expr) use ($child2, $key2, $built2) {
                 if ($expr !== $child2) {
-                    throw new InvalidArgumentException();
+                    throw new OutOfRangeException();
                 }
 
                 return [$key2 => $built2];
@@ -151,7 +151,7 @@ class BuildWpQueryArgsCapableTraitTest extends TestCase
         $subject->method('_buildWpQueryMetaRelation')->willReturnCallback(
             function ($expr) use ($child3, $built3) {
                 if ($expr !== $child3) {
-                    throw new InvalidArgumentException();
+                    throw new OutOfRangeException();
                 }
 
                 return $built3;
@@ -183,7 +183,7 @@ class BuildWpQueryArgsCapableTraitTest extends TestCase
 
         $expression = $this->createLogicalExpression(uniqid('unsupported-'));
 
-        $this->setExpectedException('InvalidArgumentException');
+        $this->setExpectedException('OutOfRangeException');
 
         $reflect->_buildWpQueryArgs($expression);
     }
@@ -212,7 +212,7 @@ class BuildWpQueryArgsCapableTraitTest extends TestCase
         // throws an exception if the argument is the second child
         $buildFn = function ($expr) use ($child2) {
             if ($expr == $child2) {
-                throw new InvalidArgumentException();
+                throw new OutOfRangeException();
             }
 
             return uniqid('result');
@@ -221,7 +221,7 @@ class BuildWpQueryArgsCapableTraitTest extends TestCase
         $subject->method('_buildWpQueryCompare')->willReturnCallback($buildFn);
         $subject->method('_buildWpQueryMetaRelation')->willReturnCallback($buildFn);
 
-        $this->setExpectedException('InvalidArgumentException');
+        $this->setExpectedException('OutOfRangeException');
 
         $reflect->_buildWpQueryArgs($expression);
     }

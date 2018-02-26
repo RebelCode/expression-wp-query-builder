@@ -3,7 +3,7 @@
 namespace RebelCode\Wordpress\Query\Builder;
 
 use Dhii\Expression\LogicalExpressionInterface;
-use InvalidArgumentException;
+use OutOfRangeException;
 
 /**
  * Common functionality for objects that can provide the compare type for `WP_Query` meta comparisons.
@@ -43,7 +43,7 @@ trait GetWpQueryMetaCompareTypeCapableTrait
             if ($type === 'boolean') {
                 return 'BINARY';
             }
-        } catch (InvalidArgumentException $ex) {
+        } catch (OutOfRangeException $ex) {
         }
 
         return 'CHAR';
@@ -56,7 +56,7 @@ trait GetWpQueryMetaCompareTypeCapableTrait
      *
      * @param LogicalExpressionInterface $expression The expression instance to extract from.
      *
-     * @throws InvalidArgumentException If the meta compare value cannot be determined.
+     * @throws OutOfRangeException If the meta compare value cannot be determined.
      *
      * @return mixed The compare value.
      */

@@ -4,7 +4,7 @@ namespace RebelCode\WordPress\Query\Builder\FuncTest;
 
 use Dhii\Expression\LogicalExpressionInterface;
 use Dhii\Expression\Type\RelationalTypeInterface;
-use InvalidArgumentException;
+use OutOfRangeException;
 use PHPUnit_Framework_MockObject_MockObject;
 use Xpmock\TestCase;
 
@@ -41,7 +41,7 @@ class BuildWpQueryCompareCapableTraitTest extends TestCase
                                     '_getWpQueryCompareKey',
                                     '_getWpQueryCompareValue',
                                     '_normalizeString',
-                                    '_createInvalidArgumentException',
+                                    '_createOutOfRangeException',
                                     '__',
                                 ]
                             )
@@ -49,9 +49,9 @@ class BuildWpQueryCompareCapableTraitTest extends TestCase
 
         $mock = $builder->getMockForTrait();
         $mock->method('__')->willReturnArgument(0);
-        $mock->method('_createInvalidArgumentException')->willReturnCallback(
+        $mock->method('_createOutOfRangeException')->willReturnCallback(
             function ($m, $c, $p) {
-                return new InvalidArgumentException($m, $c, $p);
+                return new OutOfRangeException($m, $c, $p);
             }
         );
         $mock->method('_normalizeString')->willReturnCallback(
@@ -143,7 +143,7 @@ class BuildWpQueryCompareCapableTraitTest extends TestCase
 
         $expression = $this->createLogicalExpression(RelationalTypeInterface::T_GREATER_THAN);
 
-        $this->setExpectedException('InvalidArgumentException');
+        $this->setExpectedException('OutOfRangeException');
 
         $reflect->_buildWpQueryCompare($expression);
     }
@@ -164,9 +164,9 @@ class BuildWpQueryCompareCapableTraitTest extends TestCase
         $subject->expects($this->once())
                 ->method('_getWpQueryCompareKey')
                 ->with($expression)
-                ->willThrowException(new InvalidArgumentException());
+                ->willThrowException(new OutOfRangeException());
 
-        $this->setExpectedException('InvalidArgumentException');
+        $this->setExpectedException('OutOfRangeException');
 
         $reflect->_buildWpQueryCompare($expression);
     }
@@ -187,9 +187,9 @@ class BuildWpQueryCompareCapableTraitTest extends TestCase
         $subject->expects($this->once())
                 ->method('_getWpQueryCompareValue')
                 ->with($expression)
-                ->willThrowException(new InvalidArgumentException());
+                ->willThrowException(new OutOfRangeException());
 
-        $this->setExpectedException('InvalidArgumentException');
+        $this->setExpectedException('OutOfRangeException');
 
         $reflect->_buildWpQueryCompare($expression);
     }

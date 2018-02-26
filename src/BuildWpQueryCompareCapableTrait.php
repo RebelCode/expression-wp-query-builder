@@ -7,6 +7,7 @@ use Dhii\Expression\Type\RelationalTypeInterface;
 use Dhii\Util\String\StringableInterface as Stringable;
 use Exception as RootException;
 use InvalidArgumentException;
+use OutOfRangeException;
 
 /**
  * Common functionality for objects that can build comparison entries in `WP_Query` argument arrays.
@@ -35,11 +36,13 @@ trait BuildWpQueryCompareCapableTrait
      * @param LogicalExpressionInterface $expression The expression to build.
      *
      * @return array The built expression, as the sub-array portion that represents it in WP_Query args.
+     *
+     * @throws OutOfRangeException If the given expression is not supported.
      */
     protected function _buildWpQueryCompare(LogicalExpressionInterface $expression)
     {
         if (!$this->_isWpQueryCompareExpressionSupported($expression)) {
-            throw $this->_createInvalidArgumentException(
+            throw $this->_createOutOfRangeException(
                 $this->__('Expression type is not supported'),
                 null,
                 null,
@@ -74,7 +77,7 @@ trait BuildWpQueryCompareCapableTrait
      *
      * @param LogicalExpressionInterface $expression The expression instance to extract from.
      *
-     * @throws InvalidArgumentException If the compare key could not be determined/retrieved.
+     * @throws OutOfRangeException If the compare key could not be determined/retrieved.
      *
      * @return string The compare key string.
      */
@@ -87,7 +90,7 @@ trait BuildWpQueryCompareCapableTrait
      *
      * @param LogicalExpressionInterface $expression The expression instance to extract from.
      *
-     * @throws InvalidArgumentException If the compare value could not be determined/retrieved.
+     * @throws OutOfRangeException If the compare value could not be determined/retrieved.
      *
      * @return mixed The compare value.
      */
@@ -110,7 +113,7 @@ trait BuildWpQueryCompareCapableTrait
     abstract protected function _normalizeString($subject);
 
     /**
-     * Creates a new invalid argument exception.
+     * Creates a new Out Of Range exception.
      *
      * @since [*next-version*]
      *
@@ -119,9 +122,9 @@ trait BuildWpQueryCompareCapableTrait
      * @param RootException|null     $previous The inner exception for chaining, if any.
      * @param mixed|null             $argument The invalid argument, if any.
      *
-     * @return InvalidArgumentException The new exception.
+     * @return OutOfRangeException The new exception.
      */
-    abstract protected function _createInvalidArgumentException(
+    abstract protected function _createOutOfRangeException(
         $message = null,
         $code = null,
         RootException $previous = null,

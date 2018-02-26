@@ -8,6 +8,7 @@ use Dhii\Storage\Resource\Sql\Expression\SqlRelationalTypeInterface as SqlRelTyp
 use Dhii\Util\String\StringableInterface as Stringable;
 use Exception as RootException;
 use InvalidArgumentException;
+use OutOfRangeException;
 
 /**
  * Common functionality for objects that can retrieve the `WP_Query` meta compare operator for an expression.
@@ -42,7 +43,7 @@ trait GetWpQueryMetaCompareOperatorCapableTrait
      *
      * @param LogicalExpressionInterface $expression The expression instance to extract from.
      *
-     * @throws InvalidArgumentException If the meta compare operator cannot be determined.
+     * @throws OutOfRangeException If the meta compare operator cannot be determined.
      *
      * @return string The compare operator string.
      */
@@ -55,7 +56,7 @@ trait GetWpQueryMetaCompareOperatorCapableTrait
             return $this->wpQueryMetaCompareOperatorMap[$key][$neg];
         }
 
-        throw $this->_createInvalidArgumentException(
+        throw $this->_createOutOfRangeException(
             $this->__('Invalid expression - no meta compare operator matches the given expression'),
             null,
             null,
@@ -80,7 +81,7 @@ trait GetWpQueryMetaCompareOperatorCapableTrait
     abstract protected function _normalizeString($subject);
 
     /**
-     * Creates a new invalid argument exception.
+     * Creates a new Out Of Range exception.
      *
      * @since [*next-version*]
      *
@@ -89,9 +90,9 @@ trait GetWpQueryMetaCompareOperatorCapableTrait
      * @param RootException|null     $previous The inner exception for chaining, if any.
      * @param mixed|null             $argument The invalid argument, if any.
      *
-     * @return InvalidArgumentException The new exception.
+     * @return OutOfRangeException The new exception.
      */
-    abstract protected function _createInvalidArgumentException(
+    abstract protected function _createOutOfRangeException(
         $message = null,
         $code = null,
         RootException $previous = null,

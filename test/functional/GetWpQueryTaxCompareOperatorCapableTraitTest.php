@@ -4,7 +4,7 @@ namespace RebelCode\WordPress\Query\Builder\FuncTest;
 
 use Dhii\Expression\LogicalExpressionInterface;
 use Dhii\Storage\Resource\Sql\Expression\SqlRelationalTypeInterface;
-use InvalidArgumentException;
+use OutOfRangeException;
 use PHPUnit_Framework_MockObject_MockObject;
 use Xpmock\TestCase;
 
@@ -39,7 +39,7 @@ class GetWpQueryTaxCompareOperatorCapableTraitTest extends TestCase
                                 $methods,
                                 [
                                     '__',
-                                    '_createInvalidArgumentException',
+                                    '_createOutOfRangeException',
                                     '_normalizeString'
                                 ]
                             )
@@ -47,9 +47,9 @@ class GetWpQueryTaxCompareOperatorCapableTraitTest extends TestCase
 
         $mock = $builder->getMockForTrait();
         $mock->method('__')->willReturnArgument(0);
-        $mock->method('_createInvalidArgumentException')->willReturnCallback(
+        $mock->method('_createOutOfRangeException')->willReturnCallback(
             function($m = '', $c = 0, $p = null) {
-                return new InvalidArgumentException($m, $c, $p);
+                return new OutOfRangeException($m, $c, $p);
             }
         );
         $mock->method('_normalizeString')->willReturnCallback(
@@ -148,7 +148,7 @@ class GetWpQueryTaxCompareOperatorCapableTraitTest extends TestCase
         $subject = $this->createInstance();
         $reflect = $this->reflect($subject);
 
-        $this->setExpectedException('InvalidArgumentException');
+        $this->setExpectedException('OutOfRangeException');
 
         $expression = $this->createLogicalExpression(uniqid('invalid-'), []);
 
