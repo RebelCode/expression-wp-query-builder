@@ -1,6 +1,6 @@
 <?php
 
-namespace RebelCode\Wordpress\Query\Builder;
+namespace RebelCode\WordPress\Query\Builder;
 
 use Dhii\Expression\LogicalExpressionInterface;
 use Dhii\Expression\Type\BooleanTypeInterface;
