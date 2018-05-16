@@ -28,6 +28,12 @@
             "RebelCode\\WordPress\\Query\\Builder\\": "src"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "RebelCode\\WordPress\\Query\\Builder\\UnitTest\\": "test/unit",
+            "RebelCode\\WordPress\\Query\\Builder\\FuncTest\\": "test/functional"
+        }
+    },
     "scripts": {
         "test": "phpunit",
         "csfix": "php-cs-fixer fix -vvv"
