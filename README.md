@@ -1,9 +1,9 @@
 # RebelCode - Expression WP Query Builder - Abstract
 
-[![Build Status](https://travis-ci.org/RebelCode/expression-wp-query-builder.svg?branch=develop)](https://travis-ci.org/RebelCode/expression-wp-query-builder)
-[![Code Climate](https://codeclimate.com/github/RebelCode/expression-wp-query-builder/badges/gpa.svg)](https://codeclimate.com/github/RebelCode/expression-wp-query-builder)
-[![Test Coverage](https://codeclimate.com/github/RebelCode/expression-wp-query-builder/badges/coverage.svg)](https://codeclimate.com/github/RebelCode/expression-wp-query-builder/coverage)
-[![Latest Stable Version](https://poser.pugx.org/rebelcode/expression-wp-query-builder/version)](https://packagist.org/packages/rebelcode/expression-wp-query-builder)
+[![Build Status](https://travis-ci.org/RebelCode/expression-wp-query-builder-abstract.svg?branch=develop)](https://travis-ci.org/RebelCode/expression-wp-query-builder-abstract)
+[![Code Climate](https://codeclimate.com/github/RebelCode/expression-wp-query-builder-abstract/badges/gpa.svg)](https://codeclimate.com/github/RebelCode/expression-wp-query-builder-abstract)
+[![Test Coverage](https://codeclimate.com/github/RebelCode/expression-wp-query-builder-abstract/badges/coverage.svg)](https://codeclimate.com/github/RebelCode/expression-wp-query-builder-abstract/coverage)
+[![Latest Stable Version](https://poser.pugx.org/rebelcode/expression-wp-query-builder-abstract/version)](https://packagist.org/packages/rebelcode/expression-wp-query-builder-abstract)
 
 Abstract functionality for building `WP_Query` args using expressions.
 
